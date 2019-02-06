@@ -1,90 +1,87 @@
 const   express = require("express"),
         router  = express.Router(),
-        Campground = require("../models/campground"),
+        Destination = require("../models/destination"),
         middleware = require("../middleware");
 
 
 //INDEX - show all campgrounds
-router.get("/", function(req, res){
+router.get("/",(req, res) => {
     // Get all campgrounds from DB
-    Campground.find({}, function(err, allCampgrounds){
+    Destination.find({}, (err, allDestinations)=>{
        if(err){
-           console.log(err);
+           console.log("ERROR FINDING DESTINATIONS: " + err);
        } else {
-          res.render("campgrounds/index",{campgrounds:allCampgrounds});
+          res.render("destinations/index", {destinations:allDestinations});
        }
     });
 });
 
 //CREATE - add new campground to DB
-router.post("/", middleware.isLoggedIn, function(req, res){
+router.post("/", middleware.isLoggedIn, (req, res)=>{
     // get data from form and add to campgrounds array
     let name = req.body.name,
         image = req.body.image,
         desc = req.body.description,
         author = {
         id: req.user._id,
-        username: req.user.username
-    };
-    var newCampground = {name: name, image: image, description: desc, author:author};
-    // Create a new campground and save to DB
-    Campground.create(newCampground, function(err, newlyCreated){
+        username: req.user.username};
+        let newDestination = {name: name, image: image, description: desc, author:author};
+    Destination.create(newDestination, function(err, newlyCreated){
         if(err){
-            console.log("ERROR CREATING CAMPGROUND" + err);
+            console.log("ERROR CREATING DESTINATION :" + err);
         } else {
             //redirect back to campgrounds page
-            console.log(newlyCreated);
-            res.redirect("/campgrounds");
+            res.redirect("/destinations");
         }
     });
 });
 
 //NEW - show form to create new campground
 router.get("/new", middleware.isLoggedIn, function(req, res){
-   res.render("campgrounds/new"); 
+   res.render("destinations/new"); 
 });
 
 // SHOW - shows more info about one campground
 router.get("/:id", function(req, res){
     //find the campground with provided ID
-    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
+    Destination.findById(req.params.id).populate("comments").exec(function(err, foundDestination){
         if(err){
             console.log("comments referencing" + err);
         } else {
-            console.log(foundCampground);
+            console.log(foundDestination);
             //render show template with that campground
-            res.render("campgrounds/show", {campground: foundCampground});
+            res.render("destinations/show", {destination: foundDestination});
         }
     });
 });
 
 // EDIT CAMPGROUND ROUTE
 router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res){
-    Campground.findById(req.params.id, function(err, foundCampground){
-        res.render("campgrounds/edit", {campground: foundCampground});
+    Destination.findById(req.params.id, function(err, foundDestination){
+        res.render("destinations/edit", {destination: foundDestination});
     });
 });
 
 // UPDATE CAMPGROUND ROUTE
 router.put("/:id",middleware.checkCampgroundOwnership, function(req, res){
     // find and update the correct campground
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+    Destination.findByIdAndUpdate(req.params.id, req.body.destination, function(err, updatedDestination){
        if(err){
            res.redirect("/campgrounds");
        } else {
            //redirect somewhere(show page)
-           res.redirect("/campgrounds/" + req.params.id);
+           res.redirect("/destinations/" + req.params.id);
        }
     });
 });
 
 // DESTROY CAMPGROUND ROUTE
 router.delete("/:id",middleware.checkCampgroundOwnership, function(req, res){
-   Campground.findByIdAndRemove(req.params.id, function(err){
+   Destination.findByIdAndRemove(req.params.id, function(err){
       if(err){
-          res.redirect("/campgrounds");
+          res.redirect("/destinations");
       } else {
-          res.redirect("/campgrounds");
+          res.redirect("/destinations");
       }
    });
 });

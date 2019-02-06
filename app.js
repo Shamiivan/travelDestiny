@@ -8,7 +8,7 @@ const express                   = require("express"),
       User                      = require("./models/user"),
       passportLocalMongoose     = require("passport-local-mongoose"), 
       mongoose                  = require("mongoose"),
-      Campground                = require("./models/campground"),
+      Campground                = require("./models/destination"),
       Comment                   = require("./models/comment"),
       destinationsRoutes         = require("./routes/destinations"),
       commentsRoutes            = require("./routes/comments"),
@@ -32,7 +32,7 @@ app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-app.use(function(req, res, next){
+app.use((req, res, next) =>{
    res.locals.currentUser = req.user;
    res.locals.error = req.flash("error");
    res.locals.success = req.flash("success");
@@ -40,15 +40,15 @@ app.use(function(req, res, next){
 });
 
 //ROUTES
-app.get("/register", function(req,res){
+app.get("/register", (req,res) =>{
     res.render("register");
 });
-app.use("/campgrounds",destinationsRoutes);
-app.use("/campgrounds/:id/comments",commentsRoutes);
+app.use("/destinations",destinationsRoutes);
+app.use("/destinations/:id/comments",commentsRoutes);
 app.use("/",indexRoutes);
 
 
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, ()=>{
    console.log("The YelpCamp Server Has Started!");
 });
