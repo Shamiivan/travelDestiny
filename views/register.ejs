@@ -1,15 +1,27 @@
 <% include ./partials/header %>
-<h1>Sign up</h1>
-
-<form action ="/register" method ="POST">
-    <labe>username</labe>
-    <input type = text name ="username">
-    <br>
-    <label>password</labe>
-    <input type = "password" name ="password"> 
-    <br>
-    <labe>Submit</labe>
-    <input type = "submit">
-</form>
-
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Register</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="username" placeholder="username">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="password">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Register</button>
+                </div>
+            </form>
+            <div class ="row text-center">
+                <div class="col-6">
+                    <a href = "/destinations" class= "btn btn-md btn-primary" href="/destinations">Home</a>
+                    <a href = "/login"class= "btn btn-md btn-primary" href="/destinations">login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <% include ./partials/footer %>
+

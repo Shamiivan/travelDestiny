@@ -1,7 +1,7 @@
-const express = require("express");
-const router  = express.Router();
-const passport = require("passport");
-const User = require("../models/user");
+const   express = require("express"),
+        router  = express.Router(),
+        passport = require("passport"),
+        User = require("../models/user");
 
 router.get("/",(req, res) => {
     res.render("landing");
@@ -11,7 +11,7 @@ router.get("/register", (req, res) => {
    res.render("register"); 
 });
 
-//handle sign up logic
+//REGISTER LOGIC
 router.post("/register", (req, res) =>{
     let newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, (err, user) =>{
@@ -20,18 +20,17 @@ router.post("/register", (req, res) =>{
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function(){
-            req.flash("sucess", "You have sucessfuly registered")    
+            req.flash("sucess", "You have sucessfuly registered");    
             res.redirect("/campgrounds"); 
         });
     });
 });
 
-//show login form
 router.get("/login", function(req, res){
    res.render("login", {message: req.flash("error")}); 
 });
 
-//handling login logic
+//LOGIN LOGIC
 router.post("/login", passport.authenticate("local", 
     {
         successRedirect: "/destinations",
@@ -39,19 +38,11 @@ router.post("/login", passport.authenticate("local",
     }), function(req, res){
 });
 
-// logout route
+
 router.get("/logout",function(req, res){
    req.logout();
    req.flash("sucess", "You have sucessfuly logged out");
    res.redirect("/destinations");
 });
-
-//middleware
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 
 module.exports = router;

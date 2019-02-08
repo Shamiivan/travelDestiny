@@ -1,17 +1,15 @@
-const Destination = require("../models/destination");
-const Comment = require("../models/comment");
+const   Destination = require("../models/destination"),
+        Comment     = require("../models/comment");
 
-// all the middleare goes here
 let middlewareObj = {};
 
 middlewareObj.checkCampgroundOwnership =(req, res, next) => {
  if(req.isAuthenticated()){
-        Destination.findById(req.params.id, function(err, foundDestination){
+        Destination.findById(req.params.id, (err, foundDestination)=>{
            if(err){
                req.flash("error", "Campground not found");
                res.redirect("back");
            }  else {
-               // does user own the campground?
             if(foundDestination.author.id.equals(req.user._id)) {
                 next();
             } else {
@@ -24,7 +22,7 @@ middlewareObj.checkCampgroundOwnership =(req, res, next) => {
         req.flash("error", "You need to be logged in to do that");
         res.redirect("back");
     }
-}
+};
 
 middlewareObj.checkCommentOwnership = function(req, res, next) {
  if(req.isAuthenticated()){
@@ -45,14 +43,14 @@ middlewareObj.checkCommentOwnership = function(req, res, next) {
         req.flash("error", "You need to be logged in to do that");
         res.redirect("back");
     }
-}
+};
 
-middlewareObj.isLoggedIn = function(req, res, next){
+middlewareObj.isLoggedIn = (req, res, next)=>{
     if(req.isAuthenticated()){
         return next();
     }
     req.flash("error", "You need to be logged in to do that");
     res.redirect("/login");
-}
+};
 
 module.exports = middlewareObj;
