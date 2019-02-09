@@ -19,14 +19,14 @@ router.post("/register", (req, res) =>{
             console.log(err);
             return res.render("register");
         }
-        passport.authenticate("local")(req, res, function(){
+        passport.authenticate("local")(req, res, ()=>{
             req.flash("sucess", "You have sucessfuly registered");    
-            res.redirect("/campgrounds"); 
+            res.redirect("/destinations"); 
         });
     });
 });
 
-router.get("/login", function(req, res){
+router.get("/login", (req, res)=>{
    res.render("login", {message: req.flash("error")}); 
 });
 
