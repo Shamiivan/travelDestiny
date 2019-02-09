@@ -35,11 +35,11 @@ router.post("/login", passport.authenticate("local",
     {
         successRedirect: "/destinations",
         failureRedirect: "/login"
-    }), function(req, res){
+    }),(req, res)=>{
 });
 
 
-router.get("/logout",function(req, res){
+router.get("/logout",(req, res)=>{
    req.logout();
    req.flash("sucess", "You have sucessfuly logged out");
    res.redirect("/destinations");
