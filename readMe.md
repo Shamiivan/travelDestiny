@@ -43,13 +43,4 @@ Add a show route/template
 
 
 This application is based on the RESTFUL ROUTES
-name     url           request   description
-======================================
-Index   /dogs          GET       display a list of all dog
-NEW     /dogs/new      GET       display a form to make a new dog
-CREATE  /dogs          POST      add new dog to DB, then redirect
-SHOW    /dogs/:id      GET       shows more info about one specific dog
-EDIT    /dogs/:id/edit GET       shows edit from one dog
-UPDATE  /dogs/:id      PUT       updates a particular dog
-DESTROY /dogs/:id      DELETE    delete a particular dog, then redirect
 
