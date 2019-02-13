@@ -1,8 +1,3 @@
-To run the mongod localy : ./mongod
-and we use the syntax to connect to mongo DB as such: 
-mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true});
-
-
 #Travel Destinty
 
 ##Initial Setup
