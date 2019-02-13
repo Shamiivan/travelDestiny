@@ -4,7 +4,9 @@
 
 Add Landing Page
 Add and Index Page that lists all travel destination
-Each Campground has:
+
+
+Each Destination has:
 
 Name
 Image
