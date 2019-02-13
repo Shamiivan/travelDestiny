@@ -1,14 +1,14 @@
-To run the mongod : ./mongod
+To run the mongod localy : ./mongod
 and we use the syntax to connect to mongo DB as such: 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true});
 
 
-#YelpCamp
+#Travel Destinty
 
 ##Initial Setup
 
 Add Landing Page
-Add Campgrounds Page that lists all campgrounds
+Add and Index Page that lists all travel destination
 Each Campground has:
 
 Name
@@ -17,16 +17,16 @@ Image
 
 Create our header and footer partials
 Add in Bootstrap
-#Creating New Campgrounds
+#Creating New Destinations
 
-Setup new campground POST route
+Setup new Destiantions POST route
 Add in body-parser
 Setup route to show form
 Add basic unstyled form
-#Style the campgrounds page
+#Style the destiantions page
 
 Add a better header/title
-Make campgrounds display in a grid
+Make destiantions display in a grid
 
 #Style the Navbar and Form
 
@@ -42,14 +42,12 @@ Use campground model inside of our routes
 
 #Show Page
 
-Review the RESTful routes we've seen so far
-Add description to our campground model
 
 Show db.collection.drop(): used to destroy everything in the DB
 Add a show route/template
 
 
-RESTFUL ROUTES
+This application is based on the RESTFUL ROUTES
 name     url           request   description
 ======================================
 Index   /dogs          GET       display a list of all dog
